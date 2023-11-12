@@ -1,0 +1,79 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+)
+
+type Address struct {
+	Address string
+	PostCode string
+}
+
+type  UserProfile struct {
+	Firstname string `json:"first_name"`
+	Lastname string
+	Age int
+	Height float32 
+	Address Address
+	Bill struct{
+		BillAddress string
+	}
+}
+
+func (u UserProfile) ToFullDesc() string {
+	return fmt.Sprintf("%s %s", u.Firstname, u.Lastname)
+}
+
+func main() {
+	fmt.Println("xx")
+	user := map[string]string{}
+
+	user["username"] = "pachara"
+	user["password"] = "xxxxx"
+	fmt.Println(user)
+	fmt.Println(user["username"])
+
+
+	userProfile := UserProfile{
+		Firstname: "pachara",
+		Lastname: "xxxxx",
+		Age : 23,
+		Height :190,
+	}
+	fmt.Println(userProfile)
+
+	userProfile.Address.Address = "เท่ละสิ"
+	fmt.Println(userProfile.ToFullDesc())
+	// txtJson, err := json.Marshal(userProfile)
+	txtJson, err := json.MarshalIndent(userProfile, "", " ")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(txtJson))
+
+
+	dataJson := `{
+		"first_name": "pachara",
+		"Lastname": "xxxxx",
+		"Age": 23,
+		"Height": 190,
+		"Address": {
+		 "Address": "เท่ละสิ",
+		 "PostCode": ""
+		},
+		"Bill": {
+		 "BillAddress": ""
+		}
+	   }`
+
+
+	   var twinProfile UserProfile
+	   err = json.Unmarshal([]byte(dataJson), &twinProfile)
+
+	   if err != nil {
+		log.Fatal(err)
+	   }
+	   fmt.Println(twinProfile.ToFullDesc())
+}

@@ -1,0 +1,35 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func Ping1S(c chan int) {
+    for i := 0; i < 10; i++ {
+        fmt.Println("Ping : ", i)
+        time.Sleep(1 * time.Second)
+    }
+	c <- 10
+}
+
+func sendNoto5S(c chan string) {
+    fmt.Println("send noti")
+    time.Sleep(5 * time.Second)
+    fmt.Println("send noti")
+	c <- "success"
+}
+
+func main() {
+	c := make(chan int)
+	ch := make(chan string)
+    go Ping1S(c)
+    go sendNoto5S(ch)
+    time.Sleep(10 * time.Second)
+
+	pingVal, notMess := <-c, <-ch
+
+	fmt.Println(pingVal, notMess)
+	// fmt.Println(c, ch)
+    fmt.Println("completed")
+}

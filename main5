@@ -1,0 +1,38 @@
+package main
+
+import "fmt"
+
+type SaveLogInterface interface {
+	SaveLog()
+}
+
+func SaveLog(st SaveLogInterface) {
+	st.SaveLog()
+}
+
+type TransferBBL struct {
+	name string
+}
+
+type TransferKTB struct {
+	name string
+}
+
+func (tBBL *TransferBBL) SaveLog() {
+	tBBL.name = "testBBL"
+	fmt.Println("save to database", tBBL.name)
+}
+
+func (tKTB *TransferKTB) SaveLog() {
+	tKTB.name = "testKTB"
+	fmt.Println("save to database", tKTB.name)
+}
+
+func main() {
+	transferA := TransferBBL{name: "BBL"}
+	transferB := TransferKTB{name: "KTB"}
+
+	SaveLog(&transferA)
+	SaveLog(&transferB)
+
+}
