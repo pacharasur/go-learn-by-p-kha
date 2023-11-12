@@ -1,0 +1,58 @@
+
+package main
+
+import (
+    "fmt"
+    "reflect"
+    "strconv"
+)
+
+func main() {
+    // fmt.Println("please enter your name")
+    // txtInput := ""
+    // fmt.Scan(&txtInput)
+    // fmt.Println("" + txtInput)
+
+    age := 2
+    fmt.Println(reflect.TypeOf(age))
+
+    height := "100"
+    h, err := strconv.Atoi(height)
+    if err != nil {
+        fmt.Println(err)
+    }
+    fmt.Println(h)
+
+    water := "12.30"
+    ml, err := strconv.ParseFloat(water, 64)
+    fmt.Println(ml)
+
+    txtShow := ""
+    txtShow = fmt.Sprintf("water = %f, height = %d", ml, h)
+    fmt.Println(txtShow)
+
+    for i := 0; i < 10; i++ {
+        fmt.Println(i)
+    }
+
+    score := 80
+    switch score {
+    case 80:
+        {
+            println("A")
+        }
+    case 70:
+        {
+            println("B")
+        }
+    }
+
+    if score > 80 {
+        println("A")
+    }else if score < 80 && score > 70 {
+        println("B")
+    }else{
+        println("F")
+    }
+
+}

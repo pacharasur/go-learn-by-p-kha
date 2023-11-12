@@ -1,0 +1,63 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func IsLnSystem(username string) bool {
+	return true
+}
+
+func CheckLogin(username string, password string) {
+	if IsLnSystem(username) {
+		fmt.Println("found in system")
+		GetUserDetail(username)
+		departure := ""
+		getDaparture(username, &departure)
+	}
+}
+
+func GetUserDetail(username string) (int, string) {
+	return 201, "manager"
+}
+
+func getDaparture(username string, departure *string) {
+	if username != "" {
+		*departure = "home"
+	}
+}
+
+func GetMember() {
+	fmt.Println("please wait...")
+	time.Sleep(3 * time.Second)
+}
+
+func LogEnd() {
+	fmt.Println("completed program")
+	fmt.Println(time.Now())
+}
+
+func CheckServerRespone() {
+	fmt.Println("check server time")
+	time.Sleep(3 * time.Second)
+	panic("server error")
+}
+
+func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("recover")
+			fmt.Println(r)
+		}
+	}()
+	// defer func() {
+	// 	fmt.Println("anonymous function")
+	// }()
+	defer LogEnd()
+	GetMember()
+	CheckServerRespone()
+
+	// panic("server error")
+
+}
